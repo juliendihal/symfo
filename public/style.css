@@ -1,0 +1,45 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header{
+    width: 100%;
+    height: 10vh;
+    background: blue;
+}
+footer{
+    width: 100%;
+    height: 10vh;
+    background: blue;
+}
+
+main{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.card{
+    width: 40%;
+    min-height:300px;
+    background: blue;
+    margin: 20px;
+    padding: 20px;
+    text-align: center;
+
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+h1{
+    margin: 20px 0;
+}
+
+p{
+    margin-bottom: 20px;
+}
