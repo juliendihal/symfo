@@ -3,11 +3,12 @@
 
 namespace App\Entity;
 
+use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
 use phpDocumentor\Reflection\Types\Boolean;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass=ArticleRepository::class)
  */
 class Article
 {
@@ -123,6 +124,6 @@ class Article
 
 
 
-  
+
 
 }

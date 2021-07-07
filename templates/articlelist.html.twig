@@ -7,7 +7,7 @@
             <a href="{{ path('article', {id: article.id}) }}">
                 <h1>{{ article.title }}</h1>
                 <p>{{ article.content }}</p>
-                <em>{{ article.id }}</em>
+                <em>{{ article.createatt | date('Y-m-d') }}</em>
             </a>
         </div>
 
