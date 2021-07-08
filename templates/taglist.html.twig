@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+
+{% block content %}
+
+    {% for tag in tags  %}
+        <a href="{{ path('tag', {id: tag.id}) }}">
+        <p style="background-color:{{ tag.color }}">{{ tag.title }}</p>
+        </a>
+    {% endfor %}
+
+{% endblock content  %}

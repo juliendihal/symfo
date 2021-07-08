@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="card">
+
+        <p style="background-color:{{ tag.color }}">{{ tag.title }}</p>
+        <p>{{ tag.color }}</p>
+        <p>{{ tag.id }}</p>
+
+    </div>
+{% endblock content %}
