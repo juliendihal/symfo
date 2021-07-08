@@ -8,5 +8,9 @@
         <p>{{ categorie.description }}</p>
         <em>{{ categorie.id }}</em>
 
+        {% for article in categorie.articles %}
+        <p>{{ article.title }}</p>
+        {% endfor %}
+
     </div>
 {% endblock content %}
