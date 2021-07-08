@@ -7,5 +7,9 @@
         <p>{{ tag.color }}</p>
         <p>{{ tag.id }}</p>
 
+        {% for article in tag.articles %}
+        <p>{{ article.title }}</p>
+        {% endfor %}
+
     </div>
 {% endblock content %}
