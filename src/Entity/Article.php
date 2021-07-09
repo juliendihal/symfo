@@ -53,6 +53,8 @@ class Article
      */
     private $tag;
 
+
+
     /**
      * @return mixed
      */
@@ -164,6 +166,8 @@ class Article
     {
         $this->tag = $tag;
     }
+
+
 
 
 

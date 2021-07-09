@@ -41,5 +41,20 @@ class ArticleController extends AbstractController{
        ]);
     }
 
+    /**
+     * @Route("/search" , name="search")
+     */
+    public function Search(ArticleRepository $articleRepository)
+    {
+
+        $word = 'streaming';
+      $articles = $articleRepository->searchByTerm($word);
+
+      return $this->render('articlesearch.html.twig', [
+       'articles'=> $articles,
+          'word'=> $word
+      ]);
+    }
+
 
 }
