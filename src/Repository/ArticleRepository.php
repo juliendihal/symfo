@@ -24,6 +24,7 @@ class ArticleRepository extends ServiceEntityRepository
 
       $query =  $queryBuilder->select('article')
            ->where('article.content LIKE :word')
+          //permet d'eviter les injection sql
            ->setParameter('word','%'.$word. '%')
            ->getQuery();
        return $query->getResult();
