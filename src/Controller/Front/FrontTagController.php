@@ -1,23 +1,25 @@
 <?php
 
-namespace App\Controller;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Annotation\Route;
+
+namespace App\Controller\Front;
+
+
 use App\Repository\TagRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use function PHPUnit\Framework\isNull;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 
-class TagController  extends AbstractController{
-
+class FrontTagController extends AbstractController
+{
     /**
      * @Route("/taglist" , name="taglist")
      */
     public function Taglist(TagRepository $tagRepository){
-      $tags = $tagRepository->findAll();
+        $tags = $tagRepository->findAll();
 
-      return $this->render('taglist.html.twig' , [
-          'tags'=> $tags
-      ]);
+        return $this->render('Front/taglist.html.twig' , [
+            'tags'=> $tags
+        ]);
     }
 
     /**
@@ -29,7 +31,7 @@ class TagController  extends AbstractController{
         if(is_Null($tag)){
             throw new NotFoundHttpException();
         }
-        return $this->render('tag.html.twig',[
+        return $this->render('Front/tag.html.twig',[
             'tag'=> $tag
         ]);
 
