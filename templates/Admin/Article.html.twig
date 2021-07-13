@@ -2,4 +2,23 @@
 
 {% block content %}
 
+    <h2>Admin Article</h2>
+
+<div>
+    <table>
+        {% for article in articles %}
+            <tr>
+                <td>{{ article.title }}</td>
+                <td>{{  article.content }}</td>
+                <td>{{ article.createatt | date('Y-m-d') }}</td>
+               <td> <a href="{{ path('articledelete', {'id': article.id }) }}">Supprimer</a></td>
+                <td><a href="{{ path('articleupdate', {'id': article.id }) }}">Mettre à jour (hardcodé)</a></td>
+            </tr>
+
+        {% endfor %}
+    </table>
+
+</div>
+
+
 {% endblock %}

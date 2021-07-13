@@ -1,0 +1,17 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block content %}
+
+    <h2>Admin Category</h2>
+<div>
+    <table>
+        {% for categorie in categories %}
+        <tr>
+            <td>{{ categorie.title }}</td>
+            <td>{{ categorie.description }}</td>
+            <td>{{ categorie.id }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

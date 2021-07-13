@@ -11,6 +11,19 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminCategoriesController extends AbstractController
 {
+
+
+    /**
+     * @Route("/admincategorielist" , name="admincategorielist")
+     */
+    public function Categorielist(CategoryRepository $categorieRepository){
+        $categories = $categorieRepository->findAll();
+        return $this->render('Admin/Category.html.twig' , [
+            'categories'=> $categories
+        ]);
+
+    }
+
     /**
      * @Route("/categorys/insert" , name="categoryinsert")
      *
@@ -28,7 +41,7 @@ class AdminCategoriesController extends AbstractController
         // je récupère toutes les entités pré-sauvegardées et je les insère en BDD
         $entityManager->flush();
 
-        return $this->redirectToRoute('categorielist');
+        return $this->render('Admin/Category.html.twig');
 
     }
 
@@ -44,7 +57,7 @@ class AdminCategoriesController extends AbstractController
         $entityManager->persist($category);
         $entityManager->flush();
 
-        return $this->redirectToRoute('categorielist');
+        return $this->render('Admin/Category.html.twig');
     }
 
     /**
@@ -57,7 +70,7 @@ class AdminCategoriesController extends AbstractController
         $entityManager->remove($category);
         $entityManager->flush();
 
-        return $this->redirectToRoute('categorielist');
+        return $this->render('Admin/Category.html.twig');
 
     }
 

@@ -14,6 +14,18 @@ class AdminTagController extends AbstractController
 {
 
     /**
+     * @Route("/admintaglist" , name="admintaglist")
+     */
+    public function AdminTaglist(TagRepository $tagRepository){
+        $tags = $tagRepository->findAll();
+
+        return $this->render('Admin/Tag.html.twig' , [
+            'tags'=> $tags
+        ]);
+    }
+
+
+    /**
      * @Route("/tags/insert" , name="taginsert")
      */
     public function  insertTag(EntityManagerInterface $entityManager , TagRepository $TagRepository){
@@ -30,7 +42,7 @@ class AdminTagController extends AbstractController
         // je récupère toutes les entités pré-sauvegardées et je les insère en BDD
         $entityManager->flush();
 
-        return $this->redirectToRoute('taglist');
+        return $this->render('Admin/Tag.html.twig');
 
     }
 
@@ -46,7 +58,7 @@ class AdminTagController extends AbstractController
         $entityManager->persist($Tag);
         $entityManager->flush();
 
-        return $this->redirectToRoute('taglist');
+        return $this->render('Admin/Tag.html.twig');
     }
 
     /**
@@ -59,7 +71,7 @@ class AdminTagController extends AbstractController
         $entityManager->remove($Tag);
         $entityManager->flush();
 
-        return $this->redirectToRoute('taglist');
+        return $this->render('Admin/Tag.html.twig');
 
     }
 

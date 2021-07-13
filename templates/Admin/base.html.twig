@@ -12,19 +12,14 @@
 <body>
 <header>
 <div>
-    <img src="{{ asset('media/images.png') }}" alt="logo">
+    <h1>ADMIN</h1>
 </div>
-    <div>
-        <form action="{{ path('search') }}" method="get">
-        <input type="text" name="q" placeholder="recherche .. ">
-            <input type="submit">
-        </form>
-    </div>
+
     <div>
         <ul>
-            <li>lien</li>
-            <li>lien</li>
-            <li>lien</li>
+            <li><a href="{{ path('adminarticlelist') }}">article</a></li>
+            <li><a href="{{ path('admincategorielist') }}">category</a></li>
+            <li><a href="{{ path('admintaglist') }}">tag</a></li>
         </ul>
     </div>
 </header>

@@ -1,43 +1,36 @@
 <?php
  namespace App\Controller\Admin;
  use App\Entity\Article;
+ use App\Form\ArticleType;
  use App\Repository\ArticleRepository;
  use App\Repository\CategoryRepository;
  use Doctrine\ORM\EntityManagerInterface;
  use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+ use Symfony\Component\HttpFoundation\Request;
  use Symfony\Component\Routing\Annotation\Route;
 
  class AdminArticleController extends AbstractController{
 
+
      /**
       * @Route("/articles/insert", name="articleinsert")
-      *
       */
-     public function  insertArticle(EntityManagerInterface $entityManager , categoryRepository $categoryRepository){
-         //creer un nouvelle article
+     public function  insertArticle(Request $request , EntityManagerInterface $entityManager){
          $article = new Article();
 
-         // j'utilise les setters de l'entité Article pour renseigner les valeurs des colonnes
-         $article->setTitle('aurelien est un connard ');
-         $article->setContent('il a un window');
-         $article->setIspublished(true);
-         $article->setCreateatt(new \DateTime('NOW'));
+         $articleForm = $this->createForm(ArticleType::class, $article);
 
-         //je recupere la categorie dont lid est 1 en bdd
-         $category = $categoryRepository->find(1);
-         // j'associe l'instance de l'entité category recuperéé a l'instance article
-         $article->setCategory($category);
+         $articleForm->handleRequest($request);
 
-
-
-
-         //sauvegarde les entity crée ici
-         $entityManager->persist($article);
-         // je récupère toutes les entités pré-sauvegardées et je les insère en BDD
-         $entityManager->flush();
-
-         return $this->redirectToRoute('articlelist');
-
+         //si le formulaire a ete poster et il est valide alors on enregistre l'article
+         if($articleForm->isSubmitted() && $articleForm->isValid()){
+              $entityManager->persist($article);
+              $entityManager->flush();
+              return $this->redirectToRoute('adminarticlelist');
+         }
+         return $this->render('Admin/form.html.twig',[
+           'articleForm'=>$articleForm->createView()
+         ]);
      }
 
      /**
@@ -52,7 +45,7 @@
          $entityManager->persist($article);
          $entityManager->flush();
 
-         return $this->redirectToRoute('articlelist');
+         return $this->redirectToRoute('adminarticlelist');
      }
 
      /**
@@ -65,7 +58,21 @@
          $entityManager->remove($article);
          $entityManager->flush();
 
-         return $this->redirectToRoute('articlelist');
+         return $this->redirectToRoute('adminarticlelist');
 
+     }
+
+
+     /**
+      * @Route("/adminarticlelist" , name="adminarticlelist")
+      */
+     public function Articlelist(ArticleRepository $articleRepository ){
+         //auto wire je place la classe en argument suivi de la variable que je veux instancier la class
+
+         $articles = $articleRepository->findAll();
+
+         return $this->render('Admin/Article.html.twig', [
+             'articles'=> $articles
+         ]);
      }
 }
