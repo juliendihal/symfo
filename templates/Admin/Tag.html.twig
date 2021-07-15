@@ -10,6 +10,9 @@
                 <td>{{ tag.title }}</td>
                 <td>{{ tag.color }}</td>
                 <td>{{ tag.id }}</td>
+                <td> <a href="{{ path('tagdelete', {'id': tag.id }) }}">Supprimer</a></td>
+                <td><a href="{{ path('tagupdate', {'id': tag.id }) }}">Mettre à jour </a></td>
+                <td><a href="{{ path('taginsert', {'id': tag.id }) }}">ajouter</a></td>
             </tr>
         {% endfor %}
     </table>

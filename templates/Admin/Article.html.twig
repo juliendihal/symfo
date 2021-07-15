@@ -12,7 +12,8 @@
                 <td>{{  article.content }}</td>
                 <td>{{ article.createatt | date('Y-m-d') }}</td>
                <td> <a href="{{ path('articledelete', {'id': article.id }) }}">Supprimer</a></td>
-                <td><a href="{{ path('articleupdate', {'id': article.id }) }}">Mettre à jour (hardcodé)</a></td>
+                <td><a href="{{ path('articleupdate', {'id': article.id }) }}">Mettre à jour </a></td>
+                <td><a href="{{ path('articleinsert', {'id': article.id }) }}">ajouter</a></td>
             </tr>
 
         {% endfor %}

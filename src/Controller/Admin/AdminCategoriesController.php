@@ -4,9 +4,11 @@
 namespace App\Controller\Admin;
 
 use App\Entity\category;
+use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminCategoriesController extends AbstractController
@@ -28,36 +30,50 @@ class AdminCategoriesController extends AbstractController
      * @Route("/categorys/insert" , name="categoryinsert")
      *
      */
-    public function  insertCategory(EntityManagerInterface $entityManager, CategoryRepository $categoryRepository){
+    public function  insertCategory(EntityManagerInterface $entityManager, Request $request){
         //creer un nouvelle category
         $category = new category();
 
-        // j'utilise les setters de l'entité category pour renseigner les valeurs des colonnes
-        $category->setTitle('aurelien est un connard ');
-        $category->setDescription('il a un window');
+        $categoryForm = $this->createForm(CategoryType::class, $category);
 
-        //sauvegarde les entity crée ici
-        $entityManager->persist($category);
-        // je récupère toutes les entités pré-sauvegardées et je les insère en BDD
-        $entityManager->flush();
+        $categoryForm->handleRequest($request);
 
-        return $this->render('Admin/Category.html.twig');
+        //si le formulaire a ete poster et il est valide alors on enregistre l'article
+        if($categoryForm->isSubmitted() && $categoryForm->isValid()){
+            $entityManager->persist($category);
+            $entityManager->flush();
+            return $this->redirectToRoute('admincategorielist');
+        }
+
+        return $this->render('Admin/formcategory.html.twig',[
+            'categoryForm'=>$categoryForm->createView()
+        ]);
+
 
     }
 
     /**
      * @Route("/categorys/update/{id}" , name="categoryupdate")
      */
-    public function updateCategory($id,CategoryRepository $categoryRepository , EntityManagerInterface $entityManager ){
+    public function updateCategory($id,Request $request, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository){
 
         $category = $categoryRepository->find($id);
 
-        $category->setTitle("aurelien");
+        $categoryForm = $this->createForm(CategoryType::class, $category);
 
-        $entityManager->persist($category);
-        $entityManager->flush();
+        $categoryForm->handleRequest($request);
 
-        return $this->render('Admin/Category.html.twig');
+        //si le formulaire a ete poster et il est valide alors on enregistre l'article
+        if($categoryForm->isSubmitted() && $categoryForm->isValid()){
+            $entityManager->persist($category);
+            $entityManager->flush();
+            return $this->redirectToRoute('admincategorielist');
+        }
+
+        return $this->render('Admin/formcategory.html.twig',[
+            'categoryForm'=>$categoryForm->createView()
+        ]);
+
     }
 
     /**
@@ -70,7 +86,7 @@ class AdminCategoriesController extends AbstractController
         $entityManager->remove($category);
         $entityManager->flush();
 
-        return $this->render('Admin/Category.html.twig');
+        return $this->redirectToRoute('admincategorielist');
 
     }
 

@@ -5,9 +5,11 @@ namespace App\Controller\Admin;
 
 
 use App\Entity\Tag;
+use App\Form\TagType;
 use App\Repository\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminTagController extends AbstractController
@@ -28,37 +30,50 @@ class AdminTagController extends AbstractController
     /**
      * @Route("/tags/insert" , name="taginsert")
      */
-    public function  insertTag(EntityManagerInterface $entityManager , TagRepository $TagRepository){
+    public function  insertTag(EntityManagerInterface $entityManager , Request $request){
         //creer un nouvelle Tag
-        $Tag = new Tag();
+        $tag = new Tag();
 
-        // j'utilise les setters de l'entité Tag pour renseigner les valeurs des colonnes
-        $Tag->setTitle('aurelien est un connard ');
-        $Tag->setColor('black');
+        $tagForm = $this->createForm(TagType::class, $tag);
 
+        $tagForm->handleRequest($request);
 
-        //sauvegarde les entity crée ici
-        $entityManager->persist($Tag);
-        // je récupère toutes les entités pré-sauvegardées et je les insère en BDD
-        $entityManager->flush();
+        //si le formulaire a ete poster et il est valide alors on enregistre l'article
+        if($tagForm->isSubmitted() && $tagForm->isValid()){
+            $entityManager->persist($tag);
+            $entityManager->flush();
+            return $this->redirectToRoute('admintaglist');
+        }
 
-        return $this->render('Admin/Tag.html.twig');
+        return $this->render('Admin/formtag.html.twig',[
+            'tagForm'=>$tagForm->createView()
+
+        ]);
 
     }
 
     /**
      * @Route("/tags/update/{id}" , name="tagupdate")
      */
-    public function updateTag($id,TagRepository $TagRepository , EntityManagerInterface $entityManager ){
+    public function updateTag($id,TagRepository $TagRepository , EntityManagerInterface $entityManager , Request $request){
 
-        $Tag = $TagRepository->find($id);
+        $tag = $TagRepository->find($id);
 
-        $Tag->setTitle("update titre 2");
+        $tagForm = $this->createForm(TagType::class, $tag);
 
-        $entityManager->persist($Tag);
-        $entityManager->flush();
+        $tagForm->handleRequest($request);
 
-        return $this->render('Admin/Tag.html.twig');
+        //si le formulaire a ete poster et il est valide alors on enregistre l'article
+        if($tagForm->isSubmitted() && $tagForm->isValid()){
+            $entityManager->persist($tag);
+            $entityManager->flush();
+            return $this->redirectToRoute('admintaglist');
+        }
+
+        return $this->render('Admin/formtag.html.twig',[
+            'tagForm'=>$tagForm->createView()
+
+        ]);
     }
 
     /**
@@ -71,7 +86,7 @@ class AdminTagController extends AbstractController
         $entityManager->remove($Tag);
         $entityManager->flush();
 
-        return $this->render('Admin/Tag.html.twig');
+        return $this->redirectToRoute('admintaglist');
 
     }
 

@@ -1,0 +1,24 @@
+{% extends 'Admin/base.html.twig' %}
+
+    {% block content %}
+
+        {{ form_start(tagForm) }}
+
+        <div>
+            {{ form_errors(tagForm.title) }}
+            {{ form_label(tagForm.title , 'titre', {'label_attr': {'class': 'form-label'}}) }}
+            <br>
+            {{ form_widget(tagForm.title, {'attr' : {'class': ' form-control'}}) }}
+        </div>
+        <div>
+            {{ form_label(tagForm.color , 'contenu', {'label_attr': {'class': 'form-label'}}) }}
+            <br>
+            {{ form_widget(tagForm.color , {'attr' : {'class': ' form-control'}}) }}
+        </div>
+        <div>
+            {{ form_widget(tagForm.submit  , {'attr' : {'class': ' btn btn-primary mt-2'}, 'label': 'enregistrer'}) }}
+        </div>
+
+        {{ form_end(tagForm) }}
+
+    {% endblock %}

@@ -28,7 +28,7 @@
               $entityManager->flush();
               return $this->redirectToRoute('adminarticlelist');
          }
-         return $this->render('Admin/form.html.twig',[
+         return $this->render('Admin/formarticle.html.twig',[
            'articleForm'=>$articleForm->createView()
          ]);
      }
@@ -50,7 +50,7 @@
              $entityManager->flush();
              return $this->redirectToRoute('adminarticlelist');
          }
-         return $this->render('Admin/form.html.twig',[
+         return $this->render('Admin/formarticle.html.twig',[
              'articleForm'=>$articleForm->createView()
          ]);
 

@@ -6,6 +6,7 @@ namespace App\Entity;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
 use phpDocumentor\Reflection\Types\Boolean;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
@@ -23,16 +24,22 @@ class Article
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Remplir le titre")
      */
     private $title;
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\Length(
+     *     min=5,
+     *     max=30,
+     *     minMessage="vous devez avoir au minimum 5 caractere")
      */
     private $content;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank(message="ajouter la date du jour")
      */
     private $createatt;
 

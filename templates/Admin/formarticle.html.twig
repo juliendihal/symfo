@@ -11,8 +11,9 @@
 </div>
 {{ form_row(articleForm.isPublished) }}{{ form_row(articleForm.submit) }}#}
 
-    
+
     <div>
+        {{ form_errors(articleForm.title) }}
         {{ form_label(articleForm.title , 'titre', {'label_attr': {'class': 'form_article_title_label  form-label'}}) }}
         <br>
         {{ form_widget(articleForm.title, {'attr' : {'class': 'form_article_title_input  form-control'}}) }}

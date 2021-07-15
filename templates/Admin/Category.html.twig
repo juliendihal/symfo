@@ -10,6 +10,9 @@
             <td>{{ categorie.title }}</td>
             <td>{{ categorie.description }}</td>
             <td>{{ categorie.id }}</td>
+            <td> <a href="{{ path('categorydelete', {'id': categorie.id }) }}">Supprimer</a></td>
+            <td><a href="{{ path('categoryupdate', {'id': categorie.id }) }}">Mettre à jour </a></td>
+            <td><a href="{{ path('categoryinsert', {'id': categorie.id }) }}">ajouter</a></td>
         </tr>
         {% endfor %}
     </table>
