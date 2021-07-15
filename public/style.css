@@ -48,8 +48,8 @@ li{
     list-style: none;
 }
 a{
-    text-decoration: none;
-    color: red;
+    text-decoration: none!important;
+    color: red!important;
 }
 
 h1{
@@ -59,13 +59,6 @@ h1{
 p{
     margin-bottom: 20px;
 }
-
-
-
-
-
-
-
 
 form{
     width: 80%;
