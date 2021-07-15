@@ -36,16 +36,25 @@
      /**
       * @Route("/articles/update/{id}" , name="articleupdate")
       */
-     public function updateArticle($id,ArticleRepository $articleRepository , EntityManagerInterface $entityManager ){
+     public function updateArticle($id,ArticleRepository $articleRepository , EntityManagerInterface $entityManager , Request $request){
 
          $article = $articleRepository->find($id);
 
-         $article->setTitle("update titre 2");
+         $articleForm = $this->createForm(ArticleType::class, $article);
 
-         $entityManager->persist($article);
-         $entityManager->flush();
+         $articleForm->handleRequest($request);
 
-         return $this->redirectToRoute('adminarticlelist');
+         //si le formulaire a ete poster et il est valide alors on enregistre l'article
+         if($articleForm->isSubmitted() && $articleForm->isValid()){
+             $entityManager->persist($article);
+             $entityManager->flush();
+             return $this->redirectToRoute('adminarticlelist');
+         }
+         return $this->render('Admin/form.html.twig',[
+             'articleForm'=>$articleForm->createView()
+         ]);
+
+
      }
 
      /**

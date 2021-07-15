@@ -1,6 +1,41 @@
 {% extends 'Admin/base.html.twig' %}
 
 {% block content %}
-    {{ form(articleForm) }}
+
+
+    {{ form_start(articleForm) }}
+
+    {# {{ form_row(articleForm.title) }}
+            <div class="form_row">
+            {{ form_row(articleForm.content) }}
+            {{ form_row(articleForm.createatt) }}
+            </div>
+            {{ form_row(articleForm.isPublished) }}
+            {{ form_row(articleForm.submit) }}
+         #}
+
+            <div>
+         {{ form_label(articleForm.title , 'titre', {'label_attr': {'class': 'form_article_title_label  form-label'}}) }}<br>
+    {{ form_widget(articleForm.title, {'attr' : {'class': 'form_article_title_input  form-control'}}) }}
+            </div>
+            <div>
+    {{ form_label(articleForm.content , 'contenu', {'label_attr': {'class': 'form_article_content_label form-label'}}) }}<br>
+    {{ form_widget(articleForm.content , {'attr' : {'class': 'form_article_content_input  form-control'}}) }}
+            </div>
+            <div>
+    {{ form_label(articleForm.createatt , 'date', {'label_attr': {'class': 'form_article_date_label form-label'}})  }}<br>
+    {{ form_widget(articleForm.createatt , {'attr' : {'class': 'form_article_date_input  form-control'}}) }}
+            </div>
+            <div>
+    {{ form_label(articleForm.isPublished , 'publié', {'label_attr': {'class': 'form_article_publi_label  form-check-label'}})  }}<br>
+    {{ form_widget(articleForm.isPublished , {'attr' : {'class': 'form_article_publi_input form-check-input '}}) }}
+            </div>
+            <div>
+
+    {{ form_widget(articleForm.submit  , {'attr' : {'class': 'form_article_submit_input  btn btn-primary mt-2'}}) }}
+            </div>
+        {{ form_end(articleForm) }}
+
+
 
 {% endblock content %}
