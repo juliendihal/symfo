@@ -32,7 +32,6 @@ class Article
      * @ORM\Column(type="string")
      * @Assert\Length(
      *     min=5,
-     *     max=30,
      *     minMessage="vous devez avoir au minimum 5 caractere")
      */
     private $content;
