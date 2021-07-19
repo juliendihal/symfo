@@ -39,7 +39,15 @@
         <br>
         {{ form_widget(articleForm.isPublished , {'attr' : {'class': 'form_article_publi_input form-check-input '}}) }}
     </div>
+
+    <div>
+        {{ form_label(articleForm.image , 'image', {'label_attr': {'class': 'form_article_publi_label  form-label'}})  }}
+        <br>
+        {{ form_widget(articleForm.image , {'attr' : {'class': 'form_article_publi_input form-control '}}) }}
+    </div>
     <div>
         {{ form_widget(articleForm.submit  , {'attr' : {'class': 'form_article_submit_input  btn btn-primary mt-2'}, 'label': 'enregistrer'}) }}
     </div>
+
+    {{ form_end(articleForm) }}
 {% endblock content %}

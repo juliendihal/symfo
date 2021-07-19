@@ -3,11 +3,11 @@
  use App\Entity\Article;
  use App\Form\ArticleType;
  use App\Repository\ArticleRepository;
- use App\Repository\CategoryRepository;
  use Doctrine\ORM\EntityManagerInterface;
  use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  use Symfony\Component\HttpFoundation\Request;
  use Symfony\Component\Routing\Annotation\Route;
+ use Symfony\Component\String\Slugger\SluggerInterface;
 
  class AdminArticleController extends AbstractController{
 
@@ -15,7 +15,7 @@
      /**
       * @Route("/articles/insert", name="articleinsert")
       */
-     public function  insertArticle(Request $request , EntityManagerInterface $entityManager){
+     public function  insertArticle(Request $request , EntityManagerInterface $entityManager, SluggerInterface $slugger){
          $article = new Article();
 
          $articleForm = $this->createForm(ArticleType::class, $article);
@@ -24,6 +24,28 @@
 
          //si le formulaire a ete poster et il est valide alors on enregistre l'article
          if($articleForm->isSubmitted() && $articleForm->isValid()){
+
+             $imageFile = $articleForm->get('image')->getData();
+
+             if($imageFile){
+                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                 // this is needed to safely include the file name as part of the URL
+                 $safeFilename = $slugger->slug($originalFilename);
+                 $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+
+                 try {
+                     $imageFile->move(
+                         $this->getParameter('image_directory'),
+                         $newFilename
+                     );
+                 } catch (FileException $e) {
+                     // ... handle exception if something happens during file upload
+                 }
+
+                 $article->setImage($newFilename);
+
+             }
+
               $entityManager->persist($article);
               $entityManager->flush();
               return $this->redirectToRoute('adminarticlelist');

@@ -22,14 +22,14 @@ class Category
     /**
      * @ORM\Column(type="string", length=30)
      * @Assert\NotBlank(message="remplir le champs titre")
-     * @Assert\Length(min=5, max=50 , minMessage="vous devez avoir au minimum 5 caractere" maxMessage="vous devez avoir au maximum 50 caractere")
+     * @Assert\Length(min=5, max=50 , minMessage="vous devez avoir au minimum 5 caractere" , maxMessage="vous devez avoir au maximum 50 caractere")
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="remplir le champs description")
-     * @Assert\Length (min=5 , minMessage="vous devez avoir au minimum 5 caractere"
+     * @Assert\Length (min=5 , minMessage="vous devez avoir au minimum 5 caractere")
      */
     private $description;
 

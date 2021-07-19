@@ -24,21 +24,19 @@ class Article
 
     /**
      * @ORM\Column(type="string")
-     * @Assert\NotBlank(message="Remplir le titre")
+     *
      */
     private $title;
 
     /**
      * @ORM\Column(type="string")
-     * @Assert\Length(
-     *     min=5,
-     *     minMessage="vous devez avoir au minimum 5 caractere")
+     *
      */
     private $content;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\NotBlank(message="ajouter la date du jour")
+     *
      */
     private $createatt;
 
@@ -58,6 +56,11 @@ class Article
      * @ORM\ManyToOne(targetEntity="App\Entity\Tag", inversedBy="articles")
      */
     private $tag;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
 
 
 
@@ -171,6 +174,18 @@ class Article
     public function setTag($tag): void
     {
         $this->tag = $tag;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
     }
 
 

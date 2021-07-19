@@ -3,7 +3,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\category;
+use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -40,6 +40,10 @@ class AdminCategoriesController extends AbstractController
 
         //si le formulaire a ete poster et il est valide alors on enregistre l'article
         if($categoryForm->isSubmitted() && $categoryForm->isValid()){
+            $this->addFlash(
+                'sucess',
+                "la categorie a bien etait crée"
+            );
             $entityManager->persist($category);
             $entityManager->flush();
             return $this->redirectToRoute('admincategorielist');

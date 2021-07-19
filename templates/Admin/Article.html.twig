@@ -9,6 +9,9 @@
         {% for article in articles %}
             <tr>
                 <td>{{ article.title }}</td>
+                {% if article.image %}
+                <td><img src="{{ asset('upload/'~ article.image) }}"></td>
+                {% endif %}
                 <td>{{  article.content }}</td>
                 <td>{{ article.createatt | date('Y-m-d') }}</td>
                <td> <a href="{{ path('articledelete', {'id': article.id }) }}">Supprimer</a></td>

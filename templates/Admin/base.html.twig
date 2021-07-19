@@ -25,7 +25,16 @@
     </div>
 </header>
 <main>
-    {% block content %} {% endblock %}
+    <div>
+        {% for message in app.flashes('notice') %}
+            <div class="flash-notice">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% block content %}
+
+    {% endblock %}
 </main>
 
 <footer>

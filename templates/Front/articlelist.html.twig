@@ -6,6 +6,7 @@
 
             <a href="{{ path('article', {id: article.id}) }}">
                 <h1>{{ article.title }}</h1>
+                <img src="{{ asset('upload/'~ article.imageFilename) }}">
                 <p>{{ article.content }}</p>
                 <em>{{ article.createatt | date('Y-m-d') }}</em>
             </a>
